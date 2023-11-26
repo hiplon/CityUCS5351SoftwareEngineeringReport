@@ -11,8 +11,17 @@
 \usepackage[bookmarksnumbered, colorlinks, plainpages]{hyperref}
 \usepackage[dvipsnames]{xcolor}
 %\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
-
 \usepackage{balance}
+\newcount\myloopcounter
+
+\newcommand{\repeatit}[2][10]{%
+  \myloopcounter0% initialize the loop counter
+  \loop\ifnum\myloopcounter < #1 % Test if the loop counter is < #1
+  #2%
+  \advance\myloopcounter by 1 % 
+  \repeat % start again
+}
+
 \begin{document}
 \title{Final Report of the Group Project for CS5351\\
 \colorbox{yellow}{\textit{!We Need Project Title: An informative title!}}
@@ -90,6 +99,7 @@ Our primary deployment targets a Browser/Server (B/S) architecture, providing us
 Recognizing the diversity in developer preferences and environments, we also provide a straightforward Graphical User Interface (GUI) for desktop users. This option ensures that our tool caters to developers who may prefer a local installation or work within specific desktop environments. This versatility resonates with the adaptability concepts covered in software engineering.
 
 \subsection{DevOps Integration}
+\label{sol:devops}
 
 In keeping with contemporary software engineering practices, our tool is deployed using robust DevOps practices, aligning with the DevOps principles covered in software engineering.
 
@@ -159,6 +169,7 @@ The evaluation dives into the scalability of the developed tools, exploring thei
 
 
 \subsection{Scalability}
+\label{evaluate:Scalability}
 
 Scalability is a critical aspect of our code smell detection tool, as it determines its ability to handle diverse and large-scale software projects efficiently. The evaluation involves several key components:
 
@@ -212,17 +223,21 @@ The Conclusion section provides a concise recap of the main achievements, encomp
 \section*{Word Count Testing}
 \noindent The Part is for testing how many word perpage...
 
-Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat Repeat.
+\repeatit[448]{Words Repeat }
 
-\textbf{(1 page)}
+\textbf{(1 page) 448*2 = 896 words per page}
 
 \newpage
 
 \bibliographystyle{ieeetr} 
 \bibliography{refs} % Entries are in the refs.bib file
 
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/fig1.png}}]{Orange}
-Orange is taste.
+\vspace{-5 mm}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/fig1.png}}]{Biography} According to the requirements that in the Project PPT. Biography is required. Such AS:\\
+1. The bio of each student including the declaration of the contribution of the student.\\
+2. Present a bio of each student. Who you are, your background, technical ideas, current interests, etc. Give a \textcolor{BurntOrange}{self-reflection} on the work done by you. \textcolor{BurntOrange}{State and justify your contribution} to the project.
+
+
 \end{IEEEbiography}
 
 \input{private/bio}
