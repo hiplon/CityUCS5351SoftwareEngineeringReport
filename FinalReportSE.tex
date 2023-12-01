@@ -8,11 +8,37 @@
 \usepackage{url}
 \usepackage{verbatim}
 \usepackage{graphicx}
+\usepackage{listings}
 \usepackage[bookmarksnumbered, colorlinks, plainpages]{hyperref}
 \usepackage[dvipsnames]{xcolor}
 %\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
 \usepackage{balance}
 \newcount\myloopcounter
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
 
 \newcommand{\repeatit}[2][10]{%
   \myloopcounter0% initialize the loop counter
@@ -52,33 +78,135 @@ Software Engineering, Software Testing, Computer Science, Software Maintainance,
 
 
 \section{Introduction}
-\IEEEPARstart{T}{his} collaborative effort reflects the team's dedication to creating tools that aid software engineers in improving code quality by detecting code smells. 
+\IEEEPARstart{I}{n} rapidly developing society, information technology has made significant advancements and has gradually become deeply ingrained in every aspect of people's lives. It plays a crucial role in various aspects of people's lives. Simultaneously, an increasing number of individuals are trusting the security of network technology and entrusting more of their private information to the internet. Since privacy exists, it is inevitable that there will be malicious users who, for various reasons, attempt to invade privacy, also known as threat actors. Web applications, due to their short development cycles and developers' inadequate security awareness, often contain various vulnerabilities. Malicious users exploit these vulnerabilities in web applications to gain valuable information and pose a threat to users and businesses.
 
-The following sections provide an in-depth look at the project's background, the proposed solution, the software development process, evaluation results, and concluding remarks.
+In this context, it can be observed that many information security issues stem from code-related problems. According to Gartner, the leading global IT research and consulting firm, nearly 75\% of hacking incidents are related to system code security. Product developers may create security risks due to a lack of sufficient knowledge about information security while writing code. Insecure code not only becomes exploitable but can also assist malicious users. Therefore, before a product is launched, code auditing, which provides security guarantees, is essential. Code auditing involves reading and examination of source code by auditors to identify potential security vulnerabilities or coding irregularities, highlighting code defects that may lead to security loopholes, and providing recommendations for modifications in the audit report. Conducting thorough code audits is a cost-effective way to ensure product security and a timely approach to discovering vulnerabilities, thereby enabling proactive prevention of potential attacks. Effective code security auditing can significantly reduce the security risks of software, minimizing the need for subsequent remedial work such as security assessments, reinforcements, controls, and maintenance. It transforms passive intrusion protection into proactive defense against vulnerabilities in products. Secure and stable products contribute to the sustained efficient operation and development of businesses.
 
-\textbf{(about 1-1.5 pages)}
+Automated code auditing methods differ from manual auditing. They offer high efficiency and increased speed in auditing source code. They reduce the professional requirements for auditors, making it easier for beginners to operate and generate reports. Moreover, automated auditing provides a completely objective perspective, comprehensively auditing all source code, preventing auditors from being influenced by developers and unable to engage in independent thinking and judgment. It also helps identify weak functional code that can easily be overlooked in manual auditing, which may pose security vulnerabilities and threaten the security of individuals and businesses' data.
+
+Web automation testing tools are tools used for automating the testing and detection of security vulnerabilities in web applications. They assist developers and security professionals in identifying and fixing common security vulnerabilities in web pages, such as SQL injection and DNS poisoning. With the increasing awareness of network security, more organizations and developers have begun to pay attention to and prioritize the security of web applications. They aim to promptly identify potential security vulnerabilities and take appropriate measures to rectify and prevent them. Web automation testing tools aid developers in conducting preliminary security testing on web pages through automation, providing accurate security assessment results. Traditional security testing typically requires significant human resources and time investment, involving manual penetration testing and vulnerability scanning, which fails to meet the demands of rapid iteration and continuous delivery. Web automation testing tools offer an automated solution that significantly reduces testing time and workload, thereby improving testing efficiency and accuracy. They assist organizations in ensuring data confidentiality and integrity by conducting security testing and addressing security vulnerabilities.
 
 \section{Related Work}
 \noindent Web security has become quite important nowdays due to the increase in cybercrimes. Developers are very concerned about how to avoid obvious security issues such as hacking and data breaches, when designing and developing websites. There have been many studies that have proposed many technologies and tools to prevent web security vulnerabilities and defense methods, and there have also been many studies that have evaluated the effectiveness and missed detection probability of existing vulnerability scanning methods. 
 
 Abirami's team created a tool to detect vulnerabilities such as XSS and SQLI using Python language. The program run automatically to send reports to relevant users\cite{9155908}. Zhang's team proposed an automatic detection tool dealing with multiple type of vulnerabilities. The tool includes a combination of three vulnerability detections, including cross-site scripting attacks, SQL injections, and directory operations\cite{8983828}. A web program named Gregorius used AJAX crawling to improve vulnerability detection efficiency\cite{9092613}. There is also a detector named ETSS, which is a versatile and modular online vulnerability detection created by Rocha and Souto that automatically checks web applications for XSS vulnerabilities. It can find and evaluate all data entry points of an application, as well as create code injection tests for each test\cite{6924244}. Web application penetration testing is designed to evaluate the design, configuration, and architecture of a web application. Shebli's group  studied penetration testing processes and tools, focusing on comparing four different port scanning tools to demonstrate their effectiveness\cite{8378035}. In recent years, with the development of machine learning, many web application vulnerability detection methods based on machine learning have emerged. Combined with the development history of machine learning security vulnerability detection technology, Lilan Hu's team designed and implemented a cross-site scripting security vulnerability detection model for web applications, a verification code identification function was added\cite{article10.1088/1742-6596/1827/1/012061}. Calzavara's group proposed a methodology to leverage machine learning for the detection of web application vulnerabilities. They used it in the design of Mitch, the first ML solution for the black-box detection of cross-site request forgery vulnerabilities\cite{8966601}.
 
-\vspace{1em}
+\subsection*{Code Audit Tools}
 
-\textit{Requirements: Present your fact finding about existing solutions toward solving the problem stated in the section on Introduction}. 
+The development history of code auditing techniques is relatively short, resulting in many security issues that should have been discovered during the development phase appearing in the deployed applications. This is particularly true for applications developed by small and medium-sized enterprises, where the emphasis is primarily on functionality, marketability, and design, with the code's security standards relying largely on the developers' awareness of security. The research on the process of code security auditing has primarily focused on classical programming languages such as C/C++. Software vulnerability detection techniques can be classified into three categories: static, dynamic, and hybrid. The code detection module in this project belongs to the category of static detection based on vulnerability rules.
 
-\textbf{(about 1 page)}
+According to a research in 2018,they leveraged the wealth of C and C++ open-source code available to develop a large-scale function-level vulnerability detection system using machine learning. Evaluate the tool on code from both real software packages and the NIST SATE IV benchmark dataset\cite{8614145}. The main idea of this research is beginning with designing a C/C++ lexical analyzer to capture the meaning of key words, while ensuring the universality of the representation and minimizing the total number of words. Then the data is processed and integrated, and labeled according to whether there is a vulnerability. Finally, the training results of the machine learning model show that deep feature representation learning on source code is a promising approach for automated software vulnerability detection.
+
+Another research in 2011 focused on a different method. To reduce the redundancy of information in software static analysis and improve the accuracy and efficiency of the information extraction, a syntax trees model based on relational storage mode is proposed. Using the mature parsing technique on XML, a new static detection method based on XML model is put forward and applied to program norm\cite{5997729}. Their result shows that the method not only improves the detection efficiency but also increases the detection accuracy.
 
 \section{Preliminaries}
-\noindent The 3rd part is Preliminaries.
-blablabal....
+\noindent The Preliminaries section lays the foundation for the reader by presenting essential technical background information. It encompasses a summary of the knowledge required to understand the developed tools, focusing on code smells, their significance, and existing tools in the domain. This section aims to equip the reader with the necessary context to comprehend the subsequent discussion.
 
-The Preliminaries section lays the foundation for the reader by presenting essential technical background information. It encompasses a summary of the knowledge required to understand the developed tools, focusing on code smells, their significance, and existing tools in the domain. This section aims to equip the reader with the necessary context to comprehend the subsequent discussion.
+\subsection{Vulnerability principle analysis}
+Both manual code auditing and the process of designing and implementing automated code auditing systems require a proficient understanding of common vulnerability principles and manifestations, as well as a solid grasp of code patterns that may give rise to such vulnerabilities. When auditors examine source code, their knowledge of vulnerability-related concepts enables them to swiftly and accurately identify defective code and annotate it accordingly. In the case of designing automated code auditing systems, it is imperative to construct a rule library based on the pertinent knowledge of common vulnerabilities. This rule library should possess precise matching capabilities and high coverage, facilitating the accurate automated identification of code that may constitute security vulnerabilities.
+
+The table \ref{tab:vulnerabilities} summarizes some commonly encountered vulnerabilities with elevated security threats. These vulnerabilities encompass, but are not limited to, the OWASP TOP 10 (Open Web Application Security Project)\cite{OWASPtop102017}, CVE (Common Vulnerabilities \& Exposures), PCI security standards, SANS20 (SysAdmin, Audit, Network, Security), and CWE (Common Weakness Enumeration) as disseminated by authoritative organizations in the field of security.
+
+\begin{table}[h]
+  \caption{vulnerabilities with high security threats}
+  \label{tab:vulnerabilities}
+  \begin{tabular}{p{0.4\linewidth}|p{0.5\linewidth}}
+  \hline\textbf{Vulnerability}             & \textbf{Impact}                                          \\\hline
+  Cross-Site Scripting (XSS)         & Phishing, identity theft, etc.                           \\\hline
+  SQL Injection                      & Information disclosure, webpage tampering, etc.          \\\hline
+  Server-Side Request Forgery (SSRF) & Unauthorized access, etc.                                \\\hline
+  Remote Code Execution (RCE)        & Information disclosure, etc.                             \\\hline
+  URL Redirection Vulnerability      & Phishing website deception, information disclosure, etc. \\\hline
+  Variable Overwrite                 & Overwriting arbitrary database configurations           
+  \end{tabular}
+  \end{table}
+
+\subsection{SQL Injection}
+SQL Injection is a security vulnerability where untrusted user input is improperly handled or concatenated into SQL queries, leading to the execution of unintended SQL commands. Attackers can manipulate input to modify the query's structure, bypass authentication, or retrieve sensitive information from the database. This occurs due to the failure of input validation and the lack of parameterized queries or prepared statements, which allow user input to be treated as data rather than executable code.
+
+\begin{lstlisting}[caption={PHP code SQL Injection},label={lst:sqlinjectphp},
+  language=PHP,breaklines=true]
+$username = $_POST['username'];
+$password = $_POST['password'];
+$query = "SELECT * FROM users WHERE username = '" . $username . "' AND password = '" . $password . "'";
+\end{lstlisting}
+
+In this piece of PHP code \ref{lst:sqlinjectphp}, if the parameters which in \verb|$_POST['username']| or \verb|$_POST['password']| are not properly validated or sanitized, an attacker can input malicious SQL statements as the values, thereby altering the intended SQL query structure and potentially gaining unauthorized access to the database.
+
+\subsection{Cross-Site Scripting (XSS)}
+Cross-Site Scripting is a vulnerability that occurs when untrusted user input is not properly sanitized or encoded before being displayed on a web page. This allows attackers to inject and execute malicious scripts within the victim's browser, leading to various attacks such as session hijacking, defacement, or data theft. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3in]{figures/xss.png}
+  \caption{Cross-Site Scripting (XSS)}
+  \label{fig:xss}
+  \end{figure}
+
+XSS vulnerabilities typically arise due to the lack of input validation and output encoding when displaying user-generated content. It often caused by unqualified JavaScript code.
+
+\begin{lstlisting}[caption={JavaScript Cross-Site Scripting (XSS)},label={lst:jsxss},language=HTML,breaklines=true]
+var name = document.getElementById('name').value;
+document.write("Welcome, " + name);
+\end{lstlisting}
+
+In this JavaScript example shown in \ref{lst:jsxss}, if the name value is not sanitized or encoded before being displayed using \verb|document.write()|, an attacker can inject JavaScript code as the value of name, leading to the execution of the injected script in the victim's browser.
+
+\subsection{Server-Side Request Forgery (SSRF)}
+Server-Side Request Forgery is a vulnerability where an attacker can manipulate a server's behavior by tricking it into making unintended or unauthorized requests to internal or external resources. This can lead to unauthorized access to sensitive information, port scanning, or even remote code execution. SSRF vulnerabilities typically occur when user-controlled input is used to construct URLs or make network requests without proper validation and access control.
+
+\begin{lstlisting}[caption={Java Server-Side Request Forgery (SSRF)},label={lst:javassrf},language=JAVA,breaklines=true]
+URL url = new URL(request.getParameter("url"));
+HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+\end{lstlisting}
+
+In the above Java code snippet in \ref{lst:javassrf}, if the user-provided url parameter is not properly validated or restricted, an attacker can supply a malicious URL that points to internal network resources, leading to SSRF.
+
+\subsection{Remote Code Execution (RCE)}
+Remote Code Execution is a severe vulnerability where an attacker can execute arbitrary code on a target system, potentially gaining full control over it. RCE vulnerabilities typically arise due to insecure coding practices, such as using user input directly in functions or commands without proper validation or sanitization. Attackers can exploit these vulnerabilities to run arbitrary commands, upload malicious files, or execute arbitrary code on the server.
+
+\begin{lstlisting}[caption={PHP Remote Code Execution (RCE)},label={lst:phprce},language=PHP,breaklines=true]
+$command = $_GET['command'];
+exec($command);
+\end{lstlisting}
+
+In this PHP example in \ref{lst:phprce}, if the \verb|$_GET['command']| parameter is not properly validated or sanitized, an attacker can inject malicious commands, which will be executed by the exec() function, leading to arbitrary code execution on the server.
+
+\subsection{URL Redirection}
+URL Redirection vulnerabilities occur when untrusted user input is used to redirect users to unintended or malicious websites. Attackers can abuse this vulnerability to conduct phishing attacks, redirect users to malware distribution sites, or trick them into visiting unauthorized pages. This vulnerability arises when user-controlled input is directly used to construct redirect URLs without proper validation and sanitization.
+
+\begin{lstlisting}[caption={Java URL Redirection},label={lst:javaurldr},language=JAVA,breaklines=true]
+String redirectUrl = request.getParameter("redirect");
+response.sendRedirect(redirectUrl);
+\end{lstlisting}
+
+In the above Java code in \ref{lst:javaurldr}, if the redirect parameter is not properly validated or restricted, an attacker can supply a malicious URL as the value, leading to unauthorized redirection of users to potentially harmful websites.
+
+\subsection{Variable Overwriting}
+Variable Overwriting vulnerabilities occur when the value of a variable can be controlled by an attacker, resulting in unexpected behavior or security issues in the code. This can happen due to insecure coding practices, such as allowing user input to directly modify critical variables without proper validation or sanitization, leading to unintended consequences or security breaches.
+
+\begin{lstlisting}[caption={JavaScript Variable Overwriting},label={lst:jsvo},language=HTML,breaklines=true]
+var isAdmin = false;
+// Attacker-controlled input
+isAdmin = true;
+\end{lstlisting}
+
+In this JavaScript example in \ref{lst:jsvo}, if the value of \verb|isAdmin| is influenced by user input without proper validation or access control, an attacker can overwrite the value of \verb|isAdmin| to true, potentially granting unauthorized administrative privileges.
+
+\subsection{DNS poisoning}
+DNS poisoning is a malicious attack aimed at disrupting the normal operation of the Domain Name System (DNS), which translates domain names to IP addresses. The principle behind DNS poisoning involves the manipulation of DNS responses to provide users with incorrect IP address or domain name mappings.
+DNS poisoning can be categorized into two common attack methods: DNS cache poisoning and DNS hijacking.
+
+\subsubsection{DNS cache poisoning}
+In DNS cache poisoning, the attacker attempts to deceive recursive DNS servers into storing malicious DNS responses in their cache, which will be served to other users in subsequent queries, providing them with incorrect resolution results. The attacker sends DNS responses containing false IP address and domain name mappings, which may be mistaken as legitimate responses by recursive DNS servers and stored in their cache. When other users query the same domain, the recursive DNS server returns the cached incorrect response, redirecting the users to the wrong destination.
+
+\subsubsection{DNS hijacking}
+In DNS hijacking, the attacker attempts to intercept users' DNS requests and provide malicious DNS responses. The attacker may implement DNS hijacking through various means, such as setting up malicious DNS servers in infected routers or local networks or modifying DNS settings on users' devices through malicious software. When a user sends a DNS request, the attacker's malicious DNS server returns false IP address and domain name mappings, redirecting the user to a malicious website or server controlled by the attacker.
 
 \subsection{Separation of front and back ends}
 Front-end and back-end separation is a modern web development architecture, as shown in Fig.\ref{fig:Separation}, and design pattern that separates the front-end interface of the web page from the back-end server application logic, enhancing the maintainability of the application. Since front-end and back-end are independent, we can choose the technology stack that best suits our respective needs. For example, the front-end can use React, Vue.js or Angular, while the back-end can use Node.js, Python's Flask or Django, Ruby on Rails, etc. This separation improves development efficiency because development teams can independently update and extend different parts of the application without interfering with each other.
 
-\begin{figure}[!t]
+\begin{figure}[h]
   \centering
   \includegraphics[width=2.5in]{figures/Preliminaries1.png}
   \caption{Separation of Front and Back ends}
@@ -112,7 +240,6 @@ Docker is a popular open source containerization platform that allows developers
 \subsection{Kubernetes}
 Kubernetes, also known as K8s, is an open-source container orchestration platform designed to automate the deployment, scaling, and management of containerized applications.  Kubernetes groups containers into logical units called pods, facilitating seamless management and discovery. Its core features include automated scaling, pod orchestration, services for networking, replication controllers, and deployments for ensuring application stability. With a master-node architecture, extensibility through Custom Resource Definitions (CRDs), and a vibrant community, Kubernetes has emerged as the industry standard, streamlining the complexities of containerized application deployment and management.
 
-\textbf{(about 1-2 pages)}
 
 \section{Solution}
 \noindent The Solution section articulates the team's approach to addressing code smells using an innovative tool. This part of the report encompasses detailed descriptions, algorithms, figures, and code listings that elucidate the inner workings of the solution. The team provides an example walkthrough to illustrate how the tool functions, emphasizing its relevance to topics covered in the CS5351 course.
@@ -126,7 +253,7 @@ The most common approach is to implement CORS on the server side. This can be ac
 \subsubsection{Reverse Proxy server by Nginx}
 Using a reverse proxy server between the front-end and back-end can effectively solve cross-domain issues, as shown in Fig.\ref{fig:reversesolution}. The proxy server receives the request sent by the front end and forwards the request to the actual backend server.
 
-\begin{figure}[!t]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=3in]{figures/solution-nginx.png}
   \caption{Reverse Proxy server by Nginx}
@@ -142,7 +269,7 @@ During the software engineering process, effective communication between front-e
   \item Review and feedback: Our front-end team reviewed these documents and ask questions or request changes.
 \end{itemize}
 
-\begin{figure}[!t]
+\begin{figure}[h]
   \centering
   \includegraphics[width=3in]{figures/solution-interspec.png}
   \caption{Interface documentation}
