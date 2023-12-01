@@ -107,7 +107,7 @@ Both manual code auditing and the process of designing and implementing automate
 
 The table \ref{tab:vulnerabilities} summarizes some commonly encountered vulnerabilities with elevated security threats. These vulnerabilities encompass, but are not limited to, the OWASP TOP 10 (Open Web Application Security Project)\cite{OWASPtop102017}, CVE (Common Vulnerabilities \& Exposures), PCI security standards, SANS20 (SysAdmin, Audit, Network, Security), and CWE (Common Weakness Enumeration) as disseminated by authoritative organizations in the field of security.
 
-\begin{table}[h]
+\begin{table}[ht]
   \caption{vulnerabilities with high security threats}
   \label{tab:vulnerabilities}
   \begin{tabular}{p{0.4\linewidth}|p{0.5\linewidth}}
@@ -136,7 +136,7 @@ In this piece of PHP code \ref{lst:sqlinjectphp}, if the parameters which in \ve
 \subsection{Cross-Site Scripting (XSS)}
 Cross-Site Scripting is a vulnerability that occurs when untrusted user input is not properly sanitized or encoded before being displayed on a web page. This allows attackers to inject and execute malicious scripts within the victim's browser, leading to various attacks such as session hijacking, defacement, or data theft. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=3in]{figures/xss.png}
   \caption{Cross-Site Scripting (XSS)}
@@ -350,18 +350,18 @@ Developers committed their code with readable information and requested review a
 \subsubsection{Front-end interface design}
 
 \begin{itemize}
-  \item Display code: Use appropriate HTML elements such as <pre> and <code> tags to display code, as shown in Fig.\ref{fig:displaycode}.
+  \item Display code: Use appropriate HTML elements such as \verb|<pre>| and \verb|<code>| tags to display code, as shown in Fig.\ref{fig:displaycode}.
   \item Code highlighting: Use front-end libraries highlight.js, to implement code highlighting, as shown in Fig.\ref{fig:highlightcode}. 
 \end{itemize}
 
-\begin{figure}[!t]
+\begin{figure}[h]
   \centering
   \includegraphics[width=2in]{figures/displaycode.png}
   \caption{Display code}
   \label{fig:displaycode}
   \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[h]
   \centering
   \includegraphics[width=3in]{figures/highlightcode.png}
   \caption{Code highlighting}
