@@ -2,7 +2,7 @@
 \usepackage{amsmath,amsfonts}
 \usepackage{algorithm,algpseudocode}
 \usepackage{array}
-\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{subcaption}
 \usepackage{textcomp}
 \usepackage{stfloats}
 \usepackage{url}
@@ -250,15 +250,45 @@ Solving cross-domain problems is an important challenge in implementing a front-
 \subsubsection{Use CORS Headers}
 The most common approach is to implement CORS on the server side. This can be achieved by adding specific CORS headers to the HTTP response. These headers tell the browser to allow web pages from different origins to access the resource. Allowing all sources can lead to security vulnerabilities, so we limit only specific, trusted sources.
 
-\subsubsection{Reverse Proxy server by Nginx}
-Using a reverse proxy server between the front-end and back-end can effectively solve cross-domain issues, as shown in Fig.\ref{fig:reversesolution}. The proxy server receives the request sent by the front end and forwards the request to the actual backend server.
+\subsubsection{Reverse Proxy Server by Nginx}
+Using a reverse proxy server between the front-end and back-end can effectively solve cross-domain issues, as shown in \ref{lst:nginxconf}. The proxy server receives the request sent by the front end and forwards the request to the actual backend server.
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=3in]{figures/solution-nginx.png}
-  \caption{Reverse Proxy server by Nginx}
-  \label{fig:reversesolution}
-  \end{figure}
+\begin{lstlisting}[caption={Nginx Configuration},label={lst:nginxconf},language=bash,breaklines=true]
+server {
+    listen 5003;
+    server_name _;
+    location / {
+	if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' 'http://127.0.0.1:3000';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Content-Length' 0;
+            add_header 'Content-Type' 'text/plain; charset=utf-8';
+            return 204;
+        }
+
+        if ($request_method = 'POST') {
+            add_header 'Access-Control-Allow-Origin' 'http://127.0.0.1:3000';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+        }
+
+        if ($request_method = 'GET') {
+            add_header 'Access-Control-Allow-Origin' 'http://127.0.0.1:3000';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
+            add_header 'Access-Control-Allow-Credentials' 'true';
+        }
+        proxy_pass http://127.0.0.1:5000/;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Prefix /;
+    }
+}
+\end{lstlisting}
 
 \subsection{Interface adjustment and troubleshooting, communication between front-end and back-end}
 During the software engineering process, effective communication between front-end and back-end teams is critical to successfully tuning interfaces. Postman is a powerful tool that can play a key role in this process. The following are the steps to use Postman to communicate with the back-end interface, adjust the interface, and troubleshoot based on the software engineering process:
@@ -271,7 +301,7 @@ During the software engineering process, effective communication between front-e
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=3in]{figures/solution-interspec.png}
+  \includegraphics[width=3.2in]{figures/solution-interspec.png}
   \caption{Interface documentation}
   \label{fig:interfacespec}
   \end{figure}
@@ -401,12 +431,22 @@ Developers committed their code with readable information and requested review a
   \item Collect feedback on popup components from users or stakeholders
 \end{itemize}
 
+\subsection{Using modern code review to address code execution issues}
+After completing and testing the algorithmic code for the safety detection of the web portion, Author Wang Xiaoxuan uploads this code to GitHub and notifies two reviewers, Kong Wenkai and Huang Kunlun, via email to review the code for functionality, readability, and robustness. Eventually, reviewer Kong Wenkai discovers a code vulnerability that prevents the code from running on the server and notifies author wangxiaoxuan. After fixing the bug, author wangxiaoxuan re-uploads the code.
 
-\vspace{1em}
-\textit{Requirements: Present your solution, probably with algorithms, figures, code listing, and an example walkthrough to assist you in presenting your solution. Relate the content to each topic covered in CS5351.}
-
-\textbf{(2-3 pages)}
-
+\begin{figure}[h]
+  \centering
+\subfloat[First Code Submission Record\label{fig:mcrsub}]{%
+     \includegraphics[width=0.9\linewidth]{figures/mcrsub.png}}
+  \hfill
+\subfloat[Reviewer submitted comments on the bugs found\label{fig:mcrinter}]{%
+      \includegraphics[width=0.9\linewidth]{figures/mcrinter.png}}
+  \hfill
+\subfloat[Fix bug\label{fig:mcrfixbug}]{%
+      \includegraphics[width=0.9\linewidth]{figures/mcrfixbug.png}}
+\caption{Modern Code Review}
+\label{fig:mcr} 
+\end{figure}
 
 \subsection{Multi-Platform}
 
@@ -419,6 +459,13 @@ Our primary deployment targets a Browser/Server (B/S) architecture, providing us
 \subsubsection{Desktop GUI}
 
 Recognizing the diversity in developer preferences and environments, we also provide a straightforward Graphical User Interface (GUI) for desktop users. This option ensures that our tool caters to developers who may prefer a local installation or work within specific desktop environments. This versatility resonates with the adaptability concepts covered in software engineering.
+\begin{figure}[h]
+\centering
+\includegraphics[width=2in]{figures/guimulti.png}
+\caption{Desktop GUI}
+\label{fig:guimul}
+\end{figure}
+
 
 \subsection{DevOps Integration}
 \label{sol:devops}
@@ -453,44 +500,139 @@ To enhance portability and consistency across different environments, we utilize
 \subsubsection{Kubernetes for Scalability}
 
 Ensuring our tool's robustness and scalability, we employ Kubernetes for container orchestration in algorithm \ref{alg:Scalabilitymodel}. This choice aligns with software engineering's exploration of scalable architectures and their significance in handling diverse workloads efficiently.
-
-\begin{figure}[!t]
+\begin{figure}[h]
 \centering
-\includegraphics[width=2.5in]{figures/k8slogo.png}
+\includegraphics[width=1.6in]{figures/k8slogo.png}
 \caption{Employing DevOps Techniques.}
 \label{fig:k8slogo}
 \end{figure}
 
 
 \section{Software Process}
-\noindent The 5th part is Software Process..
+\noindent The Software Process section documents the team's activities throughout the project, highlighting the achievements of each sprint. Each sprint is elaborated on in two pages, capturing the essence of the tasks undertaken, challenges faced, and milestones achieved. Additionally, the section includes a burndown chart, offering a visual representation of project progress throughout its duration.
 
-The Software Process section documents the team's activities throughout the project, highlighting the achievements of each sprint. Each sprint is elaborated on in two pages, capturing the essence of the tasks undertaken, challenges faced, and milestones achieved. Additionally, the section includes a burndown chart, offering a visual representation of project progress throughout its duration.
+\subsection{The 1st Sprint}
 
+This sprint focused on defining the scope and objectives, selecting select the programing framework, and designing the user interface. The goal was to lay the foundation for the development of a comprehensive software.
 
-\textit{Requirements: Document the activities and the achieved of each sprint in 2 pages (a total of 2*N pages for a project with N sprints). Include the burndown chart for the whole project.}
+\subsubsection{Defining the scope and objectives}
 
+Defining the scope and objectives can be divided into the following two stages:
 
+\textbf{Requirements gathering and analysis:}
 
-\textbf{(each sprint in 2 pages (a total of 2*N pages for a project with N sprints))}
+Before determining the theme of this software development, the team members interviewed their university classmates and former colleagues on the question "As a programmer, what do you think are the pain points in development?" Through the collection and analysis of the interview content, we draw a conclusion: 
+
+Generally, before a website is launched, the code and the developed website need to undergo security testing, and only after the test is passed can the version be launched.However, in all companies, code security and website security are two different tools, and some are even carried out in two separate departments, which means that this can greatly reduce the efficiency of programmers. Therefore, after discussion, our group unanimously agreed to develop a safety detection tool, which can realize synchronous scanning of web security vulnerabilities and code security vulnerabilities.
+
+\textbf{Requirements validation and prioritization:}
+This security scanning tool is divided into two parts: web security scanning and code security scanning. 
+
+For web security scanning, the following requirements are identified and prioritized from high to low:
+\begin{itemize}
+  \item Home page probe IP: This is the fundamental functionality for a website scanning tool.
+  \item SQL injection vulnerability detection: It enables the timely discovery and remediation of existing vulnerabilities to prevent attackers from exploiting SQL injection attacks to gain sensitive data or compromise the database, thereby enhancing system security and data protection capabilities.
+  \item Common port detection: Conducting port detection helps in identifying open ports in the network system, promptly recognizing potential security risks and vulnerabilities, strengthening system security configurations and defense measures, and preventing unauthorized access and attacks.
+  \item DNS spoofing detection: Detecting DNS pollution enables early discovery of malicious activities, preventing users from being redirected to malicious websites or falling victim to phishing attacks, thereby protecting user privacy and data security. It also improves network performance and reliability by ensuring accurate and reliable domain name resolution
+  \item Web directory blasting:Web directory blasting can help identify hidden vulnerabilities, sensitive information, and misconfigurations on a website, enhancing access control and security measures to prevent potential exploitation and unauthorized access.
+\end{itemize}
+For the code security scanning part, we have selected three popular programming languages for detection: PHP, Java, and JavaScript.
+By including PHP, Java, and JavaScript in the code security scanning, we can effectively identify and address security vulnerabilities, coding errors, and potential weaknesses specific to these languages. This comprehensive approach helps ensure the overall security and integrity of the codebase across different programming languages.
+
+\textbf{Non-functional requirements:}
+
+\textbf{Security:}
+\begin{itemize}
+  \item Implement a login interface where users need to provide a username and password to access the system's functionality. 
+  This requirement helps protect sensitive information and ensures that only authorized personnel can access the system. It allows for tracking user activity and recording important events. Audit tracking is valuable for security and compliance, enabling administrators to monitor user behavior, detect any unauthorized activities, and hold users accountable for their actions in the system.
+
+  \item Encrypt the password field of the database users. 
+  Encrypting the user's password field enhances data security, protects sensitive user information, and prevents malicious use of passwords. Encryption helps safeguard user privacy and prevents unauthorized individuals from directly viewing the user's original password. Encrypting aligns with industry and regulatory compliance requirements, ensuring compliance with data protection and privacy regulations. In the event of a data breach, encrypted passwords reduce the risk of unauthorized access since decrypting the passwords requires a decryption key. Implementing password encryption demonstrates a commitment to data security, enhancing user trust and confidence in the system's ability to protect sensitive information.
+
+\end{itemize}
+
+\textbf{Maintainability:}
+Divide the software development into three modules: frontend, backend, and algorithm. 
+Firstly, modular design allows for clear separation and understanding of responsibilities among the modules, reducing code complexity. Secondly, independent development and testing of different modules facilitate parallel work and rapid iterations, improving development efficiency. Additionally, modular structure enhances code reusability, enabling precise localization and adjustment when modifying or optimizing a specific module, minimizing the impact on the entire system.
+
+\textbf{Testability:}
+Encapsulate each functionality into an interface. 
+Interfaces define the inputs and outputs of functionalities, making testing clear and controllable by validating different inputs and expected outputs. The presence of interfaces allows for testing functionalities in isolated testing environments, unaffected by other functionalities, enhancing repeatability and reliability. Furthermore, interfaces encourage modular and decoupled design, facilitating testing and early detection and resolution of issues. By conducting automated tests on interfaces, testing efficiency is improved, reducing the workload of manual testing and accelerating software delivery. Overall, presenting each functionality as an interface enhances the testability of the software system, reducing testing complexity, and improving accuracy and efficiency.
+
+\subsubsection{Selecting select the programing framework}
+Different frameworks have been chosen for frontend, backend, and algorithm.
+
+\textbf{Frontend:} During the initial design discussions, we considered both Vue and React frameworks for the frontend. After researching and practical experiments, we select React as frontend framework for the following reasons:
+
+\begin{itemize}
+  \item Flexibility and customizability: React provides a flexible API and hooks, allowing developers to customize the components according to the project's requirements. React also supports integration with other libraries and frameworks, giving developers the option to choose the tools that best suit their needs.
+  \item Component-based development: React is a component-based framework that allows developers to break down the user interface into reusable components. This modular approach makes the code more manageable and maintainable. For a complex security scanning tool, this modular development approach offers flexibility and efficiency.
+\end{itemize}
+
+\textbf{Backend and Algorithm:} For the backend and algorithm frameworks, we considered Flask, Django, Tornado, and Cubes during the initial design discussions. We decided to go with the Flask framework for the following reasons:
+\begin{itemize}
+\item Compared to Django:
+Flask is more lightweight and flexible compared to Django, which includes a large set of built-in components and functionalities. This makes Flask more suitable for small or medium-sized projects and projects that require a higher level of customization.
+Flask provides fewer abstractions and constraints, allowing developers more freedom in choosing and integrating third-party libraries. It is also well-suited for building RESTful APIs and microservices.
+\item Compared to Tornado:
+Flask offers a more comprehensive ecosystem and a larger community support, making it easier to find the required plugins, tools, and documentation throughout the development process.
+Tornado is primarily designed for high-performance asynchronous web applications, which excel in handling a large number of concurrent requests. However, for a general security scanning tool, asynchronous performance is not a primary requirement. Flask's synchronous approach is simpler and more developer-friendly.
+\item Compared to Cubes:
+Cubes is a framework focused on building analytical and reporting applications, with a strong emphasis on data visualization and analysis. In contrast, a security scanning tool primarily focuses on vulnerability scanning and code security. Therefore, Flask is more suitable for the development of the backend and algorithm components.
+\end{itemize}
+
+\subsubsection{Designing the user interface} Including the Interface between Backend and algorithm and Interface between Backend and Frontend
+
+\textbf{Interface between Backend and algorithm}
+
+The development team of the algorithm group will write each functionality as a method, and finally encapsulate the code security scanning functionality and web security scanning functionality into separate libraries, which will be called by the backend collectively.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/sprintapidoc1.png}
+  \caption{Partial API Documentation}
+  \label{fig:sprintapidoc1}
+  \end{figure}
+
+\textbf{Interface between Backend and Frontend}
+The backend will deploy the code to the server at Microsoft Azure Cloud Server. The frontend will use the POST method to send requests. The API documentation is as follows shown in Fig.\ref{fig:sprintapidoc2}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/sprintapidoc2.png}
+  \caption{Partial API Documentation}
+  \label{fig:sprintapidoc2}
+  \end{figure}
+
+\subsection{The 2nd Sprint}
+
+\subsection{The 3rd Sprint}
 
 \section{Evaluation}
-\noindent The 6th part is Evaluation...
+\noindent The Evaluation section summarizes the verification and evaluation processes applied to the solution. It outlines how the team gauged the effectiveness of the tool in solving the identified code smell problems. Special attention is given to scalability considerations, comparing the results to existing tools in the software engineering landscape.
 
-
-The Evaluation section summarizes the verification and evaluation processes applied to the solution. It outlines how the team gauged the effectiveness of the tool in solving the identified code smell problems. Special attention is given to scalability considerations, comparing the results to existing tools in the software engineering landscape.
-
-
-\textit{Requirements: Summarize what you have verified or evaluated your solution to have solved the problem stated in the report, and compare to the results of existing tools}
-
-\textbf{(2-5 pages)}
-
-
-\subsection{Security}
+\subsection{Security Evaluation}
 The evaluation dives into the scalability of the developed tools, exploring their performance in handling varying codebase sizes. This section utilizes equations and figures to demonstrate scalability metrics. A comparative analysis with existing tools further validates the tool's efficacy.
 
+\subsubsection{Session Management}
+The session management functionality comes into play after a user successfully logs in. The user's identifier (i.e., user ID) is stored in the session, and the user's login status can be verified by checking the identifier in the session. This ensures that only authenticated users can access restricted features. For example, we can set that only the user with session ID 2 (i.e., the administrator) can view log records. Additionally, session management has other benefits, such as storing user identifiers in the session so that users can remain logged in even after closing the browser, without needing to log in again.
 
-\subsection{Scalability}
+\subsubsection{User Input Validation and Sanitization}
+The code includes input validation or sanitization to prevent security vulnerabilities such as SQL injection and cross-site scripting (XSS) attacks. We use the \verb|bleach.clean()| function to sanitize the username and password inputs provided by users. This function removes HTML tags from the input to prevent cross-site scripting (XSS) attacks. Additionally, we validate that the username and password are not empty and return appropriate error messages in case of errors.
+
+\subsubsection{Database Queries}
+We use parameterized queries to prevent SQL injection attacks. The variable parts of the database queries are represented using placeholders (e.g., \verb|`?`| or \verb|`%s`|) and the variable values are passed as parameters to the queries. This ensures that user inputs are properly escaped and handled, thereby preventing injection attacks.
+
+\subsubsection{Password Storage}
+The \verb|werkzeug.security| module was used for password hashing. Password hashing helps protect the security of user passwords, even if the database is compromised, as attackers cannot easily reverse engineer the passwords. This enhances the security of the application and protects users' sensitive information.
+
+\subsubsection{Principle of Least Privilege}
+In terms of database connectivity, we use a database user with appropriate privileges for the connection, avoiding the use of a user with excessive privileges. We grant the user with ID 2 the necessary permissions to access the log database, and they cannot perform unauthorized access to other sensitive data or operations. This practice helps enhance system security and protect sensitive information in the database.
+
+\subsubsection{Security Framework}
+We use the secure React framework for the frontend and the Flask framework for the backend. The security of the React framework is demonstrated through features such as the virtual DOM, component isolation, prop validation, and scaffolding tools. It manages page rendering and updates through the virtual DOM, encourages component-based development for data and functionality isolation, provides prop validation mechanisms, and offers scaffolding tools to assist developers in building secure applications.
+The security of the Flask framework is manifested in functionalities such as route protection, authentication and authorization, form validation, and handling of security-related headers. It provides protection for sensitive routes and functionalities, supports various authentication and authorization mechanisms, can validate user-submitted data, and automatically handles security-related HTTP headers.
+
+\subsection{Scalability Evaluation}
 \label{evaluate:Scalability}
 
 Scalability is a critical aspect of our code smell detection tool, as it determines its ability to handle diverse and large-scale software projects efficiently. The evaluation involves several key components:
@@ -528,6 +670,225 @@ Comparison with existing tools highlighted the competitive scalability of our so
 \subsubsection{Future Considerations}
 
 To ensure continued scalability as software projects evolve, we outline plans for future enhancements. This includes ongoing optimization efforts, monitoring for potential bottlenecks, and incorporating feedback from users to address specific scalability challenges in real-world scenarios.
+
+\subsection{Performance Evaluation}
+
+\subsubsection{Environment preparation}
+Load testing environment:
+CPU configuration: i5-12490F,
+Operating system: Windows 11,
+Memory size: 16GB,
+Load testing tool: Locust,
+Monitoring tool: Python code to monitor CPU utilization
+
+Server environment1:
+CPU configuration: Intel Xeon Platinum 8370C (1) @ 2.793GHz,
+Operating system: Debian GNU\/Linux 11 (bullseye) x86\_64,
+Kernel Version: 5.10.0-26-cloud-amd64,
+Memory size: 914MiB
+
+Server environment2:
+CPU configuration: ARM Neoverse-N1 (2),
+Operating system: Gentoo Linux aarch64,
+Kernel Version: 6.1.57-gentoo-dist,
+Memory size: 11945MiB
+
+\begin{figure}[h]
+  \centering
+\subfloat[Server environment 1 - Limitation x86\_64 Server\label{fig:srv1}]{%
+     \includegraphics[width=1\linewidth]{figures/evalusrv1.png}}
+  \hfill
+\subfloat[Server environment 2 - Performance Arm64 Server\label{fig:srv2}]{%
+      \includegraphics[width=1\linewidth]{figures/evalusrv2.png}}
+\caption{Server environment}
+\label{fig:evalusrv} 
+\end{figure}
+
+
+\subsubsection{Locust}
+Locust is a load testing tool that is described using pure Python scripts and is based entirely on the Requests library for making HTTP requests. The Requests library is simple and easy to use, yet powerful in functionality.
+
+Unlike other load testing tools, Locust utilizes the concurrency mechanism of coroutines (gevent) instead of using processes and threads. When using multiple threads to simulate multiple users, the number of threads increases with the concurrency level. However, thread switching consumes resources, and IO blocking and thread sleep inevitably reduce concurrency efficiency. Therefore, testing tools like LoadRunner and JMeter, which use processes and threads, struggle to simulate high concurrency pressure on a single machine.
+
+In contrast, Locust's coroutine mechanism avoids system-level resource scheduling, significantly improving performance. This means that on an ordinary configuration test machine, it is effortless to generate thousands of concurrent requests.
+
+
+\subsubsection{Performance metrics} We use different metrics for the evaluation.
+
+\textbf{Business performance metrics}
+\begin{itemize}
+  \item Concurrency level: The concurrency level refers to the number of users who are simultaneously sending requests and interacting with the system. It reflects the system's ability to handle concurrent requests.
+  \item Transaction Throughput (TPS/RPS): Transaction throughput refers to the number of transactions or requests that a system can process within a unit of time. It represents the system's processing capacity and performance.
+  \item Average Transaction Response Time: The average transaction response time refers to the average time it takes for the system to process a transaction. It measures the system's responsiveness to user requests.
+  \item Transaction Success Rate: The transaction success rate is the ratio of successfully processed transactions to the total number of transactions. It reflects the system's stability and reliability.
+\end{itemize}
+
+\textbf{System resource performance metrics}
+\begin{itemize}
+  \item CPU utilization: CPU utilization indicates the extent to which the CPU is being used in the system, i.e., the workload on the CPU within a unit of time. It can measure the system's computing capacity and its ability to handle the load.
+  \item Memory utilization: Memory utilization refers to the ratio between the used memory and the total memory in the system. It reflects the system's occupation of memory resources, and high memory utilization can potentially lead to decreased system performance or memory overflow.
+\end{itemize}
+
+
+\subsubsection{Performance testing}
+Test code (partial)
+\begin{lstlisting}[caption={Test code (partial)},label={lst:testcode},language=python,breaklines=true]
+class UserBehavior(HttpUser):
+    wait_time = between(1, 5)
+    host = "http://127.0.0.1:5000"
+    cpu_data = []
+    memory_data = []
+    @task
+    def login(self):
+        cpu_percent = psutil.cpu_percent()
+        memory_percent = psutil.virtual_memory().percent
+        self.cpu_data.append(cpu_percent)
+        self.memory_data.append(memory_percent)
+        response = self.client.get('/login')
+
+    @task
+    def do_login_and_out(self):
+        cpu_percent = psutil.cpu_percent()
+        memory_percent = psutil.virtual_memory().percent
+        self.cpu_data.append(cpu_percent)
+        self.memory_data.append(memory_percent)
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        data = {
+            'username': '123',
+            'password': '123'
+        }
+        response = self.client.post('/dologin', headers=headers, data=data)
+        response = self.client.get('/logout')
+  \end{lstlisting}
+
+\textbf{Standard Testing} aims to determine the performance level of a system under normal conditions. For this project, we will simulate 10 users executing the test code within 1 minute. 
+\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+locust -f your_test_file.py --headless -u 10 -r 1 --run-time 1m
+\end{lstlisting}
+
+\textbf{Execution results:}
+
+Request statistics results shown in Table \ref{tab:stdreqstat} and Fig.\ref{fig:stdreqstat}.
+
+\input{tables/stdreqstat.tex}
+\input{tables/stdrespstat.tex}
+\input{tables/loadreqstat.tex}
+\input{tables/loadrespstat.tex}
+\input{tables/fstreqstat.tex}
+\input{tables/fstrespstat.tex}
+
+  \begin{figure*}[!t]
+    \centering
+  \subfloat[Standard Testing\label{a}]{%
+       \includegraphics[width=0.24\textwidth]{figures/srvstat1.png}}
+    \hfill
+  \subfloat[Load Testing\label{b}]{%
+        \includegraphics[width=0.24\textwidth]{figures/srvstat2.png}}
+    \hfill
+  \subfloat[Stress testing\label{c}]{%
+        \includegraphics[width=0.24\textwidth]{figures/srvstat3.png}}
+    \hfill
+  \subfloat[Fatigue Strength Testing\label{d}]{%
+        \includegraphics[width=0.24\textwidth]{figures/srvstat4.png}}
+  \caption{Server Status via Testing.}
+  \label{fig:srvstats} 
+\end{figure*}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/stdreqstat.png}
+  \caption{Standard Testing Request statistics}
+  \label{fig:stdreqstat}
+  \end{figure}
+
+
+Response Time Statistics results shown in Table \ref{tab:stdrespstat} and Fig.\ref{fig:stdrespstat}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/stdrespstat.png}
+  \caption{Standard Testing Request statistics}
+  \label{fig:stdrespstat}
+  \end{figure}
+
+\textbf{Load Testing} aims to evaluate the performance and stability of a system under normal and peak loads. It involves simulating a certain number of concurrent users performing tasks. For this experiment, we will simulate 50 concurrent users executing tasks at a rate of 10 requests per second for a duration of 10 minutes. 
+\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+locust -f your_test_file.py --headless -u 50 -r 10 --run-time 10m 
+\end{lstlisting}
+
+Request statistics results shown in Table \ref{tab:loadreqstat} and Fig.\ref{fig:loadreqstat}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/loadreqstat.png}
+  \caption{Load Testing Request statistics}
+  \label{fig:loadreqstat}
+  \end{figure}
+
+Response Time Statistics results shown in Table \ref{tab:loadrespstat} and Fig.\ref{fig:loadrespstat}, The Failures Statistics shown in Table \ref{tab:failureseva}.
+
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/loadrespstat.png}
+  \caption{Load Testing Request statistics}
+  \label{fig:loadrespstat}
+  \end{figure}
+
+\begin{table}[h]
+\caption{Failures Statistics}
+\label{tab:failureseva}
+\begin{tabular}{|p{0.1\linewidth}|p{0.15\linewidth}|p{0.25\linewidth}|p{0.1\linewidth}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Method}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{c|}{\textbf{Error}}                       & \multicolumn{1}{c|}{\textbf{Occurrences}} \\ \hline
+POST                                  & /dologin                           & 500 Server Error: INTERNAL SERVER ERROR for url: /dologin & 11                                        \\ \hline
+POST                                  & /dourlfetch                        & {[}WinError 10053{]}                 & 2                                         \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Stress testing} aims to evaluate the performance and resilience of a system under overload conditions. It involves increasing the testing load by either increasing the number of concurrent users or the frequency of task execution to simulate higher levels of stress. For this experiment, we will simulate 300 concurrent users executing tasks at a rate of 50 requests per second for a duration of 30 minutes.
+\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+locust -f your_test_file.py --headless -u 300 -r 50 --run-time 30m 
+\end{lstlisting}
+
+From the analysis of the Fig.\ref{fig:stressreqstat} and Fig.\ref{fig:stressrespstat}, it can be observed that the system experienced a crash during the operation under high load conditions.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/stressreqstat.png}
+  \caption{Stress Testing Request statistics}
+  \label{fig:stressreqstat}
+  \end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/stressrespstat.png}
+  \caption{Stress Testing Request statistics}
+  \label{fig:stressrespstat}
+  \end{figure}
+
+\textbf{Fatigue Strength Testing} aims to evaluate the stability and reliability of a system under sustained load conditions. It involves running tests for an extended period of time and observing the system's performance and resource utilization during prolonged operation. For this experiment, we will simulate 30 concurrent users executing tasks at a rate of 5 requests per second for a duration of 1 hour. 
+\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+locust -f your_test_file.py --headless -u 30 -r 5 --run-time 1h 
+\end{lstlisting}
+
+Request statistics results shown in Table \ref{tab:fstreqstat} and Fig.\ref{fig:fstreqstat}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/fstreqstat.png}
+  \caption{Fatigue Strength Testing Request statistics}
+  \label{fig:fstreqstat}
+  \end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=3.4in]{figures/fstrespstat.png}
+  \caption{Fatigue Strength Testing Request statistics}
+  \label{fig:fstrespstat}
+  \end{figure}
+
+Response Time Statistics results shown in Table \ref{tab:fstrespstat} and Fig.\ref{fig:fstrespstat}.
+
 
 
 
