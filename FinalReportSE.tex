@@ -513,7 +513,7 @@ Ensuring our tool's robustness and scalability, we employ Kubernetes for contain
 
 \subsection{The 1st Sprint}
 
-This sprint focused on defining the scope and objectives, selecting select the programing framework, and designing the user interface. The goal was to lay the foundation for the development of a comprehensive software.
+This sprint focused on defining the scope and objectives, selecting the programing framework, and designing the user interface. The goal was to lay the foundation for the development of a comprehensive software.
 
 \subsubsection{Defining the scope and objectives}
 
@@ -559,7 +559,7 @@ Firstly, modular design allows for clear separation and understanding of respons
 Encapsulate each functionality into an interface. 
 Interfaces define the inputs and outputs of functionalities, making testing clear and controllable by validating different inputs and expected outputs. The presence of interfaces allows for testing functionalities in isolated testing environments, unaffected by other functionalities, enhancing repeatability and reliability. Furthermore, interfaces encourage modular and decoupled design, facilitating testing and early detection and resolution of issues. By conducting automated tests on interfaces, testing efficiency is improved, reducing the workload of manual testing and accelerating software delivery. Overall, presenting each functionality as an interface enhances the testability of the software system, reducing testing complexity, and improving accuracy and efficiency.
 
-\subsubsection{Selecting select the programing framework}
+\subsubsection{Selecting the programing framework}
 Different frameworks have been chosen for frontend, backend, and algorithm.
 
 \textbf{Frontend:} During the initial design discussions, we considered both Vue and React frameworks for the frontend. After researching and practical experiments, we select React as frontend framework for the following reasons:
@@ -606,6 +606,7 @@ The backend will deploy the code to the server at Microsoft Azure Cloud Server. 
 \subsection{The 2nd Sprint}
 
 \subsection{The 3rd Sprint}
+\input{tmp/sprint3.tex}
 
 \section{Evaluation}
 \noindent The Evaluation section summarizes the verification and evaluation processes applied to the solution. It outlines how the team gauged the effectiveness of the tool in solving the identified code smell problems. Special attention is given to scalability considerations, comparing the results to existing tools in the software engineering landscape.
@@ -825,6 +826,8 @@ Request statistics results shown in Table \ref{tab:loadreqstat} and Fig.\ref{fig
   \label{fig:loadreqstat}
   \end{figure}
 
+
+
 Response Time Statistics results shown in Table \ref{tab:loadrespstat} and Fig.\ref{fig:loadrespstat}, The Failures Statistics shown in Table \ref{tab:failureseva}.
 
 
@@ -834,17 +837,6 @@ Response Time Statistics results shown in Table \ref{tab:loadrespstat} and Fig.\
   \caption{Load Testing Request statistics}
   \label{fig:loadrespstat}
   \end{figure}
-
-\begin{table}[h]
-\caption{Failures Statistics}
-\label{tab:failureseva}
-\begin{tabular}{|p{0.1\linewidth}|p{0.15\linewidth}|p{0.25\linewidth}|p{0.1\linewidth}|}
-\hline
-\multicolumn{1}{|c|}{\textbf{Method}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{c|}{\textbf{Error}}                       & \multicolumn{1}{c|}{\textbf{Occurrences}} \\ \hline
-POST                                  & /dologin                           & 500 Server Error: INTERNAL SERVER ERROR for url: /dologin & 11                                        \\ \hline
-POST                                  & /dourlfetch                        & {[}WinError 10053{]}                 & 2                                         \\ \hline
-\end{tabular}
-\end{table}
 
 \textbf{Stress testing} aims to evaluate the performance and resilience of a system under overload conditions. It involves increasing the testing load by either increasing the number of concurrent users or the frequency of task execution to simulate higher levels of stress. For this experiment, we will simulate 300 concurrent users executing tasks at a rate of 50 requests per second for a duration of 30 minutes.
 \begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
@@ -889,8 +881,16 @@ Request statistics results shown in Table \ref{tab:fstreqstat} and Fig.\ref{fig:
 
 Response Time Statistics results shown in Table \ref{tab:fstrespstat} and Fig.\ref{fig:fstrespstat}.
 
-
-
+\begin{table}[h]
+\caption{Failures Statistics}
+\label{tab:failureseva}
+\begin{tabular}{|p{0.1\linewidth}|p{0.15\linewidth}|p{0.25\linewidth}|p{0.1\linewidth}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Method}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{c|}{\textbf{Error}}                       & \multicolumn{1}{c|}{\textbf{Occurrences}} \\ \hline
+POST                                  & /dologin                           & 500 Server Error: INTERNAL SERVER ERROR for url: /dologin & 11                                        \\ \hline
+POST                                  & /dourlfetch                        & {[}WinError 10053{]}                 & 2                                         \\ \hline
+\end{tabular}
+\end{table}
 
 \section{Conclusion}
 \noindent The 7th part is Conclusion...
