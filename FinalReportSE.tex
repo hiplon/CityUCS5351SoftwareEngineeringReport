@@ -110,14 +110,14 @@ The table \ref{tab:vulnerabilities} summarizes some commonly encountered vulnera
 \begin{table}[ht]
   \caption{vulnerabilities with high security threats}
   \label{tab:vulnerabilities}
-  \begin{tabular}{p{0.4\linewidth}|p{0.5\linewidth}}
+  \begin{tabular}{|p{0.4\linewidth}|p{0.5\linewidth}|}
   \hline\textbf{Vulnerability}             & \textbf{Impact}                                          \\\hline
   Cross-Site Scripting (XSS)         & Phishing, identity theft, etc.                           \\\hline
   SQL Injection                      & Information disclosure, webpage tampering, etc.          \\\hline
   Server-Side Request Forgery (SSRF) & Unauthorized access, etc.                                \\\hline
   Remote Code Execution (RCE)        & Information disclosure, etc.                             \\\hline
   URL Redirection Vulnerability      & Phishing website deception, information disclosure, etc. \\\hline
-  Variable Overwrite                 & Overwriting arbitrary database configurations           
+  Variable Overwrite                 & Overwriting arbitrary database configurations  \\\hline         
   \end{tabular}
   \end{table}
 
@@ -604,6 +604,52 @@ The backend will deploy the code to the server at Microsoft Azure Cloud Server. 
   \end{figure}
 
 \subsection{The 2nd Sprint}
+The task of this sprint is to complete the development of front-end, back-end, and algorithm code, integrate and debug the front-end, back-end, and algorithm code, and continuously improve and optimize the functionality by debugging bugs. The goal is to create a software that can be delivered for basic use. In this sprint, the three tasks actually overlap with each other. The first task to start is the development of front-end, back-end, and algorithm code. Shortly after the development starts, code evaluation and bug testing are conducted to identify and resolve any potential bugs in the early stages of development and to find better coding methods. By simultaneously developing and testing during the development process, potential errors and defects can be detected early, which helps in timely problem fixing and avoids the escalation of issues or more serious consequences in later stages of development. At the same time, identifying and resolving issues early in the code development phase is more cost-effective and efficient than doing it later. If problems are discovered and addressed only in the later stages, the amount of work and cost required for fixing them may be greater.
+
+\subsubsection{Front-end, Back-end, and Algorithm Development}
+The development tasks of the code lasted almost the entire duration of sprint 2, from October 4, 2023, to October 24, 2023. The development of the code aimed to deliver a usable code within the sprint 2 cycle. We divided the code development into three parts, each assigned to different team members: front-end, back-end, and algorithm. By allocating resources appropriately, we were able to effectively expedite the project development process. 
+
+\subsubsection{Front-end, Back-end, and Algorithm Development}
+The development tasks of the code lasted almost the entire duration of sprint 2, from October 4, 2023, to October 24, 2023. The development of the code aimed to deliver a usable code within the sprint 2 cycle. We divided the code development into three parts, each assigned to different team members: front-end, back-end, and algorithm. By allocating resources appropriately, we were able to effectively expedite the project development process.
+
+First and foremost is the crucial algorithm part. We created two sets of algorithm code for website security scanning and code security scanning, respectively. For website security scanning, the following requirements were determined and ranked from high to low: homepage IP detection, SQL injection vulnerability detection, common port detection, DNS spoofing detection, and web directory brute-forcing. As for code security scanning, the target requirement of this project is to support the detection of various vulnerabilities in code written in different languages. In this sprint, we have completed all the requirements for website security scanning, and for code security scanning, we have developed vulnerability scanning for JavaScript (JS), PHP, and Java, as shown in Table \ref{tab:vulscanft}. Due to time constraints, we couldn't include more vulnerability types for website and code scanning, which is a regret in this sprint.
+
+\input{tables/vulscanft.tex}
+
+The most important task for the backend part is to provide business logic to the frontend based on algorithms and perform calculations based on frontend requests. Additionally, there are requirements for database management and security verification, such as interacting with the database for data storage, retrieval, and updates, as well as ensuring user login authentication. In this sprint, the backend completed the aforementioned tasks, but there were some non-functional requirements that were not met, such as inadequate support for high-frequency API calls in terms of performance. Due to development speed, we chose Python for backend development. Python is an interpreted language and may not be as efficient in terms of performance as compiled languages like Java with Spring Boot.
+
+\textbf{Backend Development}
+The most important task for the backend part is to provide business logic to the frontend based on algorithms and perform calculations based on frontend requests. Additionally, there are requirements for database management and security verification, such as interacting with the database for data storage, retrieval, and updates, as well as ensuring user login authentication. In this sprint, the backend completed the aforementioned tasks, but there were some non-functional requirements that were not met, such as inadequate support for high-frequency API calls in terms of performance. Due to development speed, we chose Python for backend development. Python is an interpreted language and may not be as efficient in terms of performance as compiled languages like Java with Spring Boot.
+
+\textbf{Frontend Development}
+In this sprint, the main functional requirements for frontend code development were: 
+\begin{enumerate}
+  \item providing users with a webpage for website security scanning, and 
+  \item providing users with a webpage for code security scanning. 
+\end{enumerate}
+The non-functional requirements included: 
+\begin{enumerate}
+\item providing users with a visually appealing interface, 
+\item offering a navigation bar for user convenience, and 
+\item enabling users to write code directly on the webpage. 
+\end{enumerate}
+In terms of functional requirements, we fully completed them in this sprint by providing two different interfaces for website security scanning and code security scanning. All non-functional requirements, except for the ability to write code directly on the webpage, have been fulfilled. The requirement for code writing on the webpage could not be delivered to the expected standard in this sprint due to the significant workload involved in developing a rich text editor.
+
+\subsubsection{Integration, Deployment, and Connectivity}
+After the code development tasks of this sprint were mostly completed to meet the delivery standards, we proceeded with integration, deployment, and connectivity of the project. The main tasks included: 
+\begin{enumerate}
+  \item integrating the backend with the algorithms, 
+  \item testing the integrated system, resolving any conflicts, and ensuring correct code invocation, 
+  \item exposing backend APIs and deploying them to the server along with the algorithms for frontend usage, and 
+  \item establishing the connection between the frontend and backend API interfaces.
+\end{enumerate}
+In this sprint, all of the aforementioned tasks have been completed. During the integration, deployment, and connectivity process, we also created multiple technical documents to facilitate team members' understanding of different parts' functionalities and usage methods.
+
+\subsubsection{Code Refinement and Bug Testing}
+The tasks in the code refinement and bug testing phase almost start and end simultaneously with the code development tasks. In order to minimize issues that may arise during the early stages of development, we engage in concurrent development and testing, aiming to identify and resolve problems as early as possible. In the code refinement and bug testing tasks of this sprint, we mainly performed unit testing and integration testing. Unit testing and integration testing involve writing test cases to verify the correctness of various code units (functions, methods, etc.) and testing the integration of code with other modules or systems to ensure the proper collaboration of all components. Additionally, we added appropriate logging in the frontend and backend code to facilitate tracking and debugging of the system's runtime processes, helping us quickly identify and resolve issues. For example, during integration testing, we successfully resolved and discovered cross-origin issues.
+
+\subsubsection{Summary}
+After the completion of the second sprint, we conducted a retrospective and summary of the sprint, highlighting the achievements and lessons learned, especially in testing and certain non-functional requirement areas. This will help improve the efficiency and quality of the next sprint.
 
 \subsection{The 3rd Sprint}
 \input{tmp/sprint3.tex}
@@ -763,7 +809,7 @@ class UserBehavior(HttpUser):
   \end{lstlisting}
 
 \textbf{Standard Testing} aims to determine the performance level of a system under normal conditions. For this project, we will simulate 10 users executing the test code within 1 minute. 
-\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+\begin{lstlisting}[label={lst:locustcmd1},language=BASH,breaklines=true]
 locust -f your_test_file.py --headless -u 10 -r 1 --run-time 1m
 \end{lstlisting}
 
@@ -813,7 +859,7 @@ Response Time Statistics results shown in Table \ref{tab:stdrespstat} and Fig.\r
   \end{figure}
 
 \textbf{Load Testing} aims to evaluate the performance and stability of a system under normal and peak loads. It involves simulating a certain number of concurrent users performing tasks. For this experiment, we will simulate 50 concurrent users executing tasks at a rate of 10 requests per second for a duration of 10 minutes. 
-\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+\begin{lstlisting}[label={lst:locustcmd2},language=BASH,breaklines=true]
 locust -f your_test_file.py --headless -u 50 -r 10 --run-time 10m 
 \end{lstlisting}
 
@@ -839,7 +885,7 @@ Response Time Statistics results shown in Table \ref{tab:loadrespstat} and Fig.\
   \end{figure}
 
 \textbf{Stress testing} aims to evaluate the performance and resilience of a system under overload conditions. It involves increasing the testing load by either increasing the number of concurrent users or the frequency of task execution to simulate higher levels of stress. For this experiment, we will simulate 300 concurrent users executing tasks at a rate of 50 requests per second for a duration of 30 minutes.
-\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+\begin{lstlisting}[label={lst:locustcmd3},language=BASH,breaklines=true]
 locust -f your_test_file.py --headless -u 300 -r 50 --run-time 30m 
 \end{lstlisting}
 
@@ -860,7 +906,7 @@ From the analysis of the Fig.\ref{fig:stressreqstat} and Fig.\ref{fig:stressresp
   \end{figure}
 
 \textbf{Fatigue Strength Testing} aims to evaluate the stability and reliability of a system under sustained load conditions. It involves running tests for an extended period of time and observing the system's performance and resource utilization during prolonged operation. For this experiment, we will simulate 30 concurrent users executing tasks at a rate of 5 requests per second for a duration of 1 hour. 
-\begin{lstlisting}[label={lst:locustcmd},language=BASH,breaklines=true]
+\begin{lstlisting}[label={lst:locustcmd4},language=BASH,breaklines=true]
 locust -f your_test_file.py --headless -u 30 -r 5 --run-time 1h 
 \end{lstlisting}
 

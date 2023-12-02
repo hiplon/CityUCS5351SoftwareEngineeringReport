@@ -1,0 +1,29 @@
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% Beamer presentation requires \usepackage{colortbl} instead of \usepackage[table,xcdraw]{xcolor}
+\begin{table}[h]
+    \centering
+  \caption{Vulnerability Scanning Features}
+  \label{tab:vulscanft}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \multicolumn{1}{|l|}{}         & \multicolumn{1}{l|}{PHP} & \multicolumn{1}{l|}{JS} & \multicolumn{1}{l|}{java} \\ \hline
+    XSS                            & \checkmark                        & \checkmark                       & \multicolumn{1}{l|}{}     \\ \hline
+    SSRF                           & \checkmark                        &                         & \checkmark                         \\ \hline
+    SQL injection                  & \checkmark                        & \checkmark                       &                           \\ \hline
+    remote file include            & \checkmark                        & \checkmark                       &                           \\ \hline
+    Xml injection                  & \checkmark                        &                         &                           \\ \hline
+    Remote code execute            & \checkmark                        & \checkmark                       &                           \\ \hline
+    LDAP injection                 & \checkmark                        &                         &                           \\ \hline
+    Information Disclosure         & \checkmark                        &                         &                           \\ \hline
+    URL Redirector Abuse           & \checkmark                        &                         &                           \\ \hline
+    variable shadowing             & \checkmark                        &                         &                           \\ \hline
+    unserialize vulerablity        & \checkmark                        & \checkmark                       & \checkmark                         \\ \hline
+    CSRF                           &                          & \checkmark                       & \checkmark                         \\ \hline
+    Server-Side Template Injection &                          & \checkmark                       &                           \\ \hline
+    Command Injection              &                          & \checkmark                       &                           \\ \hline
+    XXE                            &                          &                         & \checkmark                         \\ \hline
+    File upload vulnerability      &                          &                         & \checkmark                         \\ \hline
+    Remote command execute         &                          &                         & \checkmark                         \\ \hline
+    \end{tabular}
+  \end{table}
