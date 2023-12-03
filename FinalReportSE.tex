@@ -50,8 +50,9 @@
 }
 
 \begin{document}
-\title{Final Report of the Group Project for CS5351\\
-\colorbox{yellow}{\textit{!We Need Project Title: An informative title!}}
+\title{%Final Report of the Group Project for CS5351\\
+Td Scanner++: An advanced security detection tool
+\colorbox{yellow}{\textit{! (tentatively)!}}
 }
 
 \input{private/author}
@@ -960,14 +961,30 @@ POST                                  & /dourlfetch                        & {[}
 \end{tabular}
 \end{table}
 
-\section{Conclusion}
-\noindent The 7th part is Conclusion...
+\section{Conclusion and Future Work}
+\noindent In conclusion, we delivered a functional multi-language security scanner successfully. This paper presented our project's development background, motivation, as well as some related work of recent research in the safety detection area. To make our solution clear, in the preliminaries part, we introduced the key technical method or framework used by our project. We also detailed the process, activities, techniques, deliverables, and outcomes involved in developing a web application security and code auditing tool over three sprints. In addition, we evaluated our system in a variety of testing. Summaries of each key part are as follows.
 
-The Conclusion section provides a concise recap of the main achievements, encompassing the software development process, activities, techniques, deliverables, the tool itself, and noteworthy best practices. Additionally, the team outlines areas for future work, indicating the potential evolution of the tools and any further enhancements planned.
+The introduction part highlighted rising cyber threats exploiting vulnerabilities in insecure code, emphasizing how most hacking incidents relate to flaws in system code. Manual code auditing was contrasted with automated methods that enable continuous, scalable, and bias-free assessments. Our tool aims to identify security weaknesses in apps as well as code written in Java, JavaScript, and PHP. It would assist developers in proactively strengthening application security and preventing exploits.
 
-\textit{Requirements: Recap the main achievement (process, activities, techniques, deliverables, tool, people, and best practice) and future work.}
+The related work reviewed prior papers in relevant domains like web security scanners, static analysis systems, machine learning approaches, and hybrid vulnerability detection tools.
 
-\textbf{(about 1 page)}
+The preliminaries provided background on common web vulnerabilities like SQL injection, XSS, SSRF, remote code execution, and URL redirection, explaining attack mechanisms. We also explain some technical concepts like front-end/back-end separation, React, Flask, CORS, Docker, and Kubernetes to readers.
+
+The solution outlined the high-level design and modular architecture of the automated scanner. Key optimizations for modularity, extensibility, and reduced coupling were highlighted, including subclassing phrasers/detectors per language, generically handling intermediary logic, and encapsulating rule definitions. The section also covered solutions for enabling communication between the React front-end and Flask back-end across domains, using CORS headers and Nginx reverse proxy techniques. What's more, more details on team collaboration were mentioned, such as git branching strategy and collective code reviews.
+
+The evaluation examined attributes like security, scalability, and performance. Security assessments include input validation, password encryption, and other techniques to prevent attacks. Scalability modeling tracks metrics like execution times and memory usage across diverse codebases. Load tests using Locust analyzed throughput, response times, and resource consumption under varied workloads.
+
+As for our three sprints, the first sprint focused on defining the project scope and objectives, selecting appropriate programming frameworks, and designing the user interface. Through stakeholder interviews and prioritized into functional and non-functional categories, we gathered the requirements. Key requirements included SQL injection detection, common port scanning, DNS spoofing checks, and vulnerability detection for PHP, Java, and JavaScript code. Additionally, security and maintainability were identified as key non-functional requirements. Our team selected React, Flask, and custom algorithms as the frameworks for the front-end, back-end, and algorithms respectively. Interfaces were designed in this sprint. 
+
+Sprint two centered on completing the development, followed by integration, deployment, and connectivity. The algorithm module delivered key website and code scanning features, though some vulnerability types were left out due to time constraints. The back-end provided business logic and database functionality but lacked performance for high-traffic loads. The front-end met requirements for website and code scanning pages as well as navigation and visual appeal, but couldn't deliver an in-page code editor. Integration tasks like exposing backend APIs and establishing front-end/back-end connectivity were completed successfully. 
+
+The third sprint focused on documentation, security considerations, performance/scalability optimizations, resolving technical debt, and final testing/deployment. Documentation of requirements and interfaces was compiled and updated. Password encryption and input filtering addressed security concerns. Refactoring established inheritance relationships between language-specific and abstract base classes, enhancing extensibility. Previous quick additions of Java and JavaScript detection were integrated properly into the codebase. Stress testing, maintainability testing, and final deployment were also performed. 
+
+In summary, our software engineering process resulted in a robust modular code auditing system offering website and source code scanning capabilities, which can detect several important application security vulnerabilities and weaknesses for key programming languages. Underlying design choices also make our system adaptable and scalable.  
+
+\subsection*{Future Outlook}
+After our reflection, we believe that there is still much room for improvement in our project. In future work, we can extend our detection language like C/C++, and Python, which would broaden vulnerability detection capabilities. For the web scanner, adding checks for other common threats like CORS misconfigurations would bolster security analysis. As a more powerful assistant for developers, the scanner should be coupled with auto-remediation modules to automatically fix discovered code flaws. From the related work, we also found machine learning approaches can potentially identify new classes of vulnerabilities and reduce false positives, which could be a new improvement direction for our project.
+
 
 
 \bibliographystyle{ieeetr} 
