@@ -52,7 +52,6 @@
 \begin{document}
 \title{%Final Report of the Group Project for CS5351\\
 Td Scanner++: An advanced security detection tool
-\colorbox{yellow}{\textit{! (tentatively)!}}
 }
 
 \input{private/author}
@@ -77,6 +76,7 @@ Software Engineering, Software Testing, Computer Science, Software Maintainance,
 
 
 \section{Introduction}
+\label{sec:intro}
 \IEEEPARstart{I}{n} rapidly developing society, information technology has made significant advancements and has gradually become deeply ingrained in every aspect of people's lives. It plays a crucial role in various aspects of people's lives. Simultaneously, an increasing number of individuals are trusting the security of network technology and entrusting more of their private information to the internet. Since privacy exists, it is inevitable that there will be malicious users who, for various reasons, attempt to invade privacy, also known as threat actors. Web applications, due to their short development cycles and developers' inadequate security awareness, often contain various vulnerabilities. Malicious users exploit these vulnerabilities in web applications to gain valuable information and pose a threat to users and businesses.
 
 In this context, it can be observed that many information security issues stem from code-related problems. According to Gartner, the leading global IT research and consulting firm, nearly 75\% of hacking incidents are related to system code security. Product developers may create security risks due to a lack of sufficient knowledge about information security while writing code. Insecure code not only becomes exploitable but can also assist malicious users. Therefore, before a product is launched, code auditing, which provides security guarantees, is essential. Code auditing involves reading and examination of source code by auditors to identify potential security vulnerabilities or coding irregularities, highlighting code defects that may lead to security loopholes, and providing recommendations for modifications in the audit report. Conducting thorough code audits is a cost-effective way to ensure product security and a timely approach to discovering vulnerabilities, thereby enabling proactive prevention of potential attacks. Effective code security auditing can significantly reduce the security risks of software, minimizing the need for subsequent remedial work such as security assessments, reinforcements, controls, and maintenance. It transforms passive intrusion protection into proactive defense against vulnerabilities in products. Secure and stable products contribute to the sustained efficient operation and development of businesses.
@@ -86,6 +86,7 @@ Automated code auditing methods differ from manual auditing. They offer high eff
 Web automation testing tools are tools used for automating the testing and detection of security vulnerabilities in web applications. They assist developers and security professionals in identifying and fixing common security vulnerabilities in web pages, such as SQL injection and DNS poisoning. With the increasing awareness of network security, more organizations and developers have begun to pay attention to and prioritize the security of web applications. They aim to promptly identify potential security vulnerabilities and take appropriate measures to rectify and prevent them. Web automation testing tools aid developers in conducting preliminary security testing on web pages through automation, providing accurate security assessment results. Traditional security testing typically requires significant human resources and time investment, involving manual penetration testing and vulnerability scanning, which fails to meet the demands of rapid iteration and continuous delivery. Web automation testing tools offer an automated solution that significantly reduces testing time and workload, thereby improving testing efficiency and accuracy. They assist organizations in ensuring data confidentiality and integrity by conducting security testing and addressing security vulnerabilities.
 
 \section{Related Work}
+\label{sec:relatedwork}
 \noindent Web security has become quite important nowdays due to the increase in cybercrimes. Developers are very concerned about how to avoid obvious security issues such as hacking and data breaches, when designing and developing websites. There have been many studies that have proposed many technologies and tools to prevent web security vulnerabilities and defense methods, and there have also been many studies that have evaluated the effectiveness and missed detection probability of existing vulnerability scanning methods. 
 
 Abirami's team created a tool to detect vulnerabilities such as XSS and SQLI using Python language. The program run automatically to send reports to relevant users\cite{9155908}. Zhang's team proposed an automatic detection tool dealing with multiple type of vulnerabilities. The tool includes a combination of three vulnerability detections, including cross-site scripting attacks, SQL injections, and directory operations\cite{8983828}. A web program named Gregorius used AJAX crawling to improve vulnerability detection efficiency\cite{9092613}. There is also a detector named ETSS, which is a versatile and modular online vulnerability detection created by Rocha and Souto that automatically checks web applications for XSS vulnerabilities. It can find and evaluate all data entry points of an application, as well as create code injection tests for each test\cite{6924244}. Web application penetration testing is designed to evaluate the design, configuration, and architecture of a web application. Shebli's group  studied penetration testing processes and tools, focusing on comparing four different port scanning tools to demonstrate their effectiveness\cite{8378035}. In recent years, with the development of machine learning, many web application vulnerability detection methods based on machine learning have emerged. Combined with the development history of machine learning security vulnerability detection technology, Lilan Hu's team designed and implemented a cross-site scripting security vulnerability detection model for web applications, a verification code identification function was added\cite{article10.1088/1742-6596/1827/1/012061}. Calzavara's group proposed a methodology to leverage machine learning for the detection of web application vulnerabilities. They used it in the design of Mitch, the first ML solution for the black-box detection of cross-site request forgery vulnerabilities\cite{8966601}.
@@ -99,6 +100,7 @@ According to a research in 2018,they leveraged the wealth of C and C++ open-sour
 Another research in 2011 focused on a different method. To reduce the redundancy of information in software static analysis and improve the accuracy and efficiency of the information extraction, a syntax trees model based on relational storage mode is proposed. Using the mature parsing technique on XML, a new static detection method based on XML model is put forward and applied to program norm\cite{5997729}. Their result shows that the method not only improves the detection efficiency but also increases the detection accuracy.
 
 \section{Preliminaries}
+\label{sec:preliminaries}
 \noindent The Preliminaries section lays the foundation for the reader by presenting essential technical background information. It encompasses a summary of the knowledge required to understand the developed tools, focusing on code smells, their significance, and existing tools in the domain. This section aims to equip the reader with the necessary context to comprehend the subsequent discussion.
 
 \subsection{Vulnerability principle analysis}
@@ -241,6 +243,7 @@ Kubernetes, also known as K8s, is an open-source container orchestration platfor
 
 
 \section{Solution}
+\label{sec:solution}
 \noindent This section will introduce the structure of static code detection, as shown in Fig.\ref{fig:detectengine}. First, let's go over the functionality of each part:
 \begin{itemize}
   \item File: This part holds the content of the file, along with related properties like the coding language and encoding format
@@ -532,7 +535,7 @@ Ensuring our tool's robustness and scalability, we employ Kubernetes for contain
 \noindent The Software Process section documents the team's activities throughout the project, highlighting the achievements of each sprint. Each sprint is elaborated on in two pages, capturing the essence of the tasks undertaken, challenges faced, and milestones achieved. Additionally, the section includes a burndown chart, offering a visual representation of project progress throughout its duration.
 
 \subsection{The 1st Sprint}
-
+\label{sec:1stsprint}
 This sprint focused on defining the scope and objectives, selecting the programing framework, and designing the user interface. The goal was to lay the foundation for the development of a comprehensive software.
 
 \subsubsection{Defining the scope and objectives}
@@ -624,6 +627,7 @@ The backend will deploy the code to the server at Microsoft Azure Cloud Server. 
   \end{figure}
 
 \subsection{The 2nd Sprint}
+\label{sec:sprint2}
 The task of this sprint is to complete the development of front-end, back-end, and algorithm code, integrate and debug the front-end, back-end, and algorithm code, and continuously improve and optimize the functionality by debugging bugs. The goal is to create a software that can be delivered for basic use. In this sprint, the three tasks actually overlap with each other. The first task to start is the development of front-end, back-end, and algorithm code. Shortly after the development starts, code evaluation and bug testing are conducted to identify and resolve any potential bugs in the early stages of development and to find better coding methods. By simultaneously developing and testing during the development process, potential errors and defects can be detected early, which helps in timely problem fixing and avoids the escalation of issues or more serious consequences in later stages of development. At the same time, identifying and resolving issues early in the code development phase is more cost-effective and efficient than doing it later. If problems are discovered and addressed only in the later stages, the amount of work and cost required for fixing them may be greater.
 
 \subsubsection{Front-end, Back-end, and Algorithm Development}
@@ -739,6 +743,7 @@ Comparison with existing tools highlighted the competitive scalability of our so
 To ensure continued scalability as software projects evolve, we outline plans for future enhancements. This includes ongoing optimization efforts, monitoring for potential bottlenecks, and incorporating feedback from users to address specific scalability challenges in real-world scenarios.
 
 \subsection{Performance Evaluation}
+\label{evaluate:performance}
 
 \subsubsection{Environment preparation}
 Load testing environment:
@@ -958,7 +963,17 @@ POST                                  & /dourlfetch                        & {[}
 \end{tabular}
 \end{table}
 
+\section{Revolution}
+We introduce a combination of different develop languages for fresh (not only) developers in a single code detection code, which also provide the multiplatform services for their convenience whatever they want to deploy.
+
+We integrate the website safety detection and the code security detection function, which is fundamental test in a develop process.
+
+We refact the code detect engine in algorithm system, making it modularization and easy for maintainable.
+
+We develop a B/S architecture for the code detect engine, a user-friendly and aesthetics UI for users.
+
 \section{Conclusion and Future Work}
+\label{sec:conclusion}
 \noindent In conclusion, we delivered a functional multi-language security scanner successfully. This paper presented our project's development background, motivation, as well as some related work of recent research in the safety detection area. To make our solution clear, in the preliminaries part, we introduced the key technical method or framework used by our project. We also detailed the process, activities, techniques, deliverables, and outcomes involved in developing a web application security and code auditing tool over three sprints. In addition, we evaluated our system in a variety of testing. Summaries of each key part are as follows.
 
 The introduction part highlighted rising cyber threats exploiting vulnerabilities in insecure code, emphasizing how most hacking incidents relate to flaws in system code. Manual code auditing was contrasted with automated methods that enable continuous, scalable, and bias-free assessments. Our tool aims to identify security weaknesses in apps as well as code written in Java, JavaScript, and PHP. It would assist developers in proactively strengthening application security and preventing exploits.
@@ -982,18 +997,10 @@ In summary, our software engineering process resulted in a robust modular code a
 \subsection*{Future Outlook}
 After our reflection, we believe that there is still much room for improvement in our project. In future work, we can extend our detection language like C/C++, and Python, which would broaden vulnerability detection capabilities. For the web scanner, adding checks for other common threats like CORS misconfigurations would bolster security analysis. As a more powerful assistant for developers, the scanner should be coupled with auto-remediation modules to automatically fix discovered code flaws. From the related work, we also found machine learning approaches can potentially identify new classes of vulnerabilities and reduce false positives, which could be a new improvement direction for our project.
 
-
-
 \bibliographystyle{ieeetr} 
 \bibliography{refs} % Entries are in the refs.bib file
 
 \vspace{-5 mm}
-\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{figures/fig1.png}}]{Biography} According to the requirements that in the Project PPT. Biography is required. Such AS:\\
-1. The bio of each student including the declaration of the contribution of the student.\\
-2. Present a bio of each student. Who you are, your background, technical ideas, current interests, etc. Give a \textcolor{BurntOrange}{self-reflection} on the work done by you. \textcolor{BurntOrange}{State and justify your contribution} to the project.
-
-
-\end{IEEEbiography}
 
 \input{private/bio}
 

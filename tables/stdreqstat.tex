@@ -1,9 +1,9 @@
 \begin{table*}[h]
   \caption{Standard Testing Request Statistics}
   \label{tab:stdreqstat}
-  \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
-  \hline
-  \multicolumn{1}{|c|}{\textbf{Method}} & \multicolumn{1}{c|}{\textbf{Name}} & \multicolumn{1}{c|}{\textbf{\# Requests}} & \multicolumn{1}{c|}{\textbf{\# Fails}} & \multicolumn{1}{c|}{\textbf{Average (ms)}} & \multicolumn{1}{c|}{\textbf{Min (ms)}} & \multicolumn{1}{c|}{\textbf{Max (ms)}} & \multicolumn{1}{c|}{\textbf{Average size (bytes)}} & \multicolumn{1}{c|}{\textbf{RPS}} & \multicolumn{1}{c|}{\textbf{Failures/s}} \\ \hline
+  \begin{tabular}{|p{0.07\textwidth}|p{0.1\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|p{0.07\textwidth}|}
+    \hline
+  {\textbf{Method}} & {\textbf{Name}} & {\textbf{\# Requests}} & {\textbf{\# Fails}} & {\textbf{Average (ms)}} & {\textbf{Min (ms)}} & {\textbf{Max (ms)}} & {\textbf{Average size (bytes)}} & {\textbf{RPS}} & {\textbf{Failures/s}} \\ \hline
   GET                                   & /dashboard                         & 23                                        & 0                                      & 6                                          & 3                                      & 31                                     & 528                                                & 0.4                               & 0.0                                      \\ \hline
   {\color[HTML]{2A2B2E} POST}           & /dologin                           & 30                                        & 0                                      & 98                                         & 90                                     & 122                                    & 5472                                               & 0.5                               & 0.0                                      \\ \hline
   {\color[HTML]{2A2B2E} POST}           & /doupload                          & 32                                        & 0                                      & 2                                          & 1                                      & 16                                     & 45                                                 & 0.5                               & 0.0                                      \\ \hline
